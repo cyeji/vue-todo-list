@@ -24,8 +24,8 @@ export default {
       // 저장하는 로직
       // Application -> Storage -> LocalStorage
       if(this.newTodoItem !== ''){
-        var obj = {completed: false, item: this.newTodoItem};
-        localStorage.setItem(this.newTodoItem,JSON.stringify(obj));
+        //this.$emit(이벤트 이름, this.newTodoItem);
+        this.$emit('addTodoItem',this.newTodoItem);
         this.clearInput();
       }
     },
