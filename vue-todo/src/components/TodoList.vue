@@ -1,15 +1,15 @@
 <template>
   <div>
       <!-- ul>li*3 -->
-      <ul>
-        <li v-for="(todoItem, index) in propsdata" v-bind:key="todoItem.item" class="shadow">
-          <font-awesome-icon icon="fas fa-check" class="checkBtn" v-bind:class="{checkBtnCompleted: todoItem.completed}" v-on:click="toggleComplete(todoItem,index)"/>
-          <span v-bind:class="{textCompleted: todoItem.completed}">{{ todoItem.item }}</span>
-          <span class="removeBtn" v-on:click="removeTodo(todoItem, index)">
+    <transition-group name="list" tag="ul">
+      <li v-for="(todoItem, index) in propsdata" v-bind:key="todoItem.item" class="shadow">
+        <font-awesome-icon icon="fas fa-check" class="checkBtn" v-bind:class="{checkBtnCompleted: todoItem.completed}" v-on:click="toggleComplete(todoItem,index)"/>
+        <span v-bind:class="{textCompleted: todoItem.completed}">{{ todoItem.item }}</span>
+        <span class="removeBtn" v-on:click="removeTodo(todoItem, index)">
             <font-awesome-icon icon="fas fa-trash-alt"/>
-          </span>
-        </li>
-      </ul>
+        </span>
+      </li>
+    </transition-group>
   </div>
 </template>
 
@@ -60,5 +60,14 @@ li {
 .removeBtn{
   margin-left: auto;
   color: #de4343;
+}
+.list-enter-active,
+.list-leave-active{
+  transition: all 1s;
+}
+.list-enter,
+.list-leave-to{
+  opacity: 0;
+  transform: translateY(30px);
 }
 </style>

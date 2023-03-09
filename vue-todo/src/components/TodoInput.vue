@@ -7,16 +7,32 @@
       <span class="addContainer" v-on:click="addTodo">
         <font-awesome-icon icon="fa-solid fa-plus " class="addBtn"/>
       </span>
+      <Modal v-if="showModal" @close="showModal = false">
+        <h3 slot="header">
+          경고!
+          <font-awesome-icon icon="fa-solid fa-times" class="closeModalBtn" @click="showModal = false"></font-awesome-icon>
+        </h3>
+        <!--    Quiz body,footer 재정의    -->
+        <div slot="body">
+          아무것도 입력하지 않으셨습니다.
+        </div>
+        <div slot="footer">
+          @copy right
+        </div>
+      </Modal>
     </div>
   </div>
 
 </template>
 
 <script>
+import Modal from "./common/Modal.vue";
+
 export default {
   data: function(){
     return{
-      newTodoItem: ""
+      newTodoItem: "",
+      showModal: false
     }
   },
   methods: {
@@ -27,11 +43,16 @@ export default {
         //this.$emit(이벤트 이름, this.newTodoItem);
         this.$emit('addTodoItem',this.newTodoItem);
         this.clearInput();
+      } else {
+        this.showModal = !this.showModal;
       }
     },
     clearInput: function(){
       this.newTodoItem = '';
     },
+  },
+  components: {
+    Modal: Modal
   },
 }
 </script>
@@ -60,5 +81,8 @@ input:focus {
 .addBtn {
   color: white;
   vertical-align: middle;
+}
+.closeModalBtn{
+  color: #42b983;
 }
 </style>
